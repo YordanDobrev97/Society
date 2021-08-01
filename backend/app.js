@@ -1,14 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 require('./config/db');
-const User = require('./models/User');
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const { userRoute } = require('./routes/index');
 
-app.get('/users', async (req, res) => {
-    const users = await User.findAll();
-    res.send(users);
-})
-
+app.use('/users', userRoute);
 
 app.listen(PORT, console.log(`Server is running at ${PORT}`));
